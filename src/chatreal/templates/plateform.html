@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateform</title>
+</head>
+<body>
+   
+    <div class="plateform">
+        <h1>ChatApp</h1>
+        <div class="contenue">
+            <div class="utilisateurs">
+                <h2>utilisateurs</h2>
+                {% if users %}
+                    <ul>
+                        {% for u in users %}
+                            <li><img src="{{ u.profile_picture.url }}" alt="{{ u.username }}" /> | {{ u.username }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+    
+            <div class="template">
+                <p>Pas de discussion pour le moment !!!</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .plateform{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 50%;
+        height: 900px;
+        border: 2px solid black;
+    }
+
+    .contenue{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .plateform img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px solid gray;
+        object-fit: cover;
+    }
+
+    .plateform .utilisateurs{
+        border: 2px solid gray;
+        margin: 10px;
+        width: 400px;
+        height: 800px;
+    }
+
+    .plateform .utilisateurs ul{
+        overflow-y: auto;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .plateform .utilisateurs h1{
+        text-align: center;
+    }
+
+
+    .plateform .template{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid gray;
+        margin: 10px;
+        width: 600px;
+        height: 800px;
+        overflow-y: auto;
+    }
+
+</style>
+
+</html>

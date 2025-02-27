@@ -42,3 +42,13 @@ class CustomUser(AbstractUser):
         related_name='customuser_permissions',
         blank=True
     )
+
+
+class Messages(models.Model):
+    exped = models.ForeignKey(CustomUser, related_name="expediteur", on_delete=models.CASCADE)
+    dest = models.ForeignKey(CustomUser, related_name="destinateur", on_delete=models.CASCADE)
+    message = models.TextField()
+    date_env = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"de {self.exped} a {self.dest} le {self.date_env}"

@@ -8,9 +8,10 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation.template import context_re
 
-from chatreal.forms import CustomUserCreationForm
-from chatreal.models import CustomUser
-from chatAppDjango import settings
+from .models import CustomUser, Messages
+from .forms import CustomUserCreationForm
+
+
 
 
 # Create your views here.
@@ -66,6 +67,25 @@ def Plateform(request):
     return render(request, 'plateform.html', contexte)
 
 
+@login_required
 def Discussion(request, id):
-    amie = get_object_or_404(CustomUser, id=id)
-    return render(request, 'discussion.html', {"amie":amie})
+    users = CustomUser.objects.exclude(id=request.user.id)
+    destinateur = get_object_or_404(CustomUser, id=id)
+    texte = Messages.objects.filter(
+        Q(exped=request.user, dest=destinateur) | Q(exped=destinateur, dest=request.user)
+    ).order_by('date_env')
+
+    if request.method == 'POST':
+        continue_message = request.POST.get('continue_message')
+        if continue_message.strip():
+            Messages.objects.create(exped=request.user, dest=destinateur, message=continue_message)
+        return redirect('discussion', id=id)
+
+    context = {
+        "destinateur": destinateur,
+        "expediteur": request.user,
+        "users": users,
+        "texte": texte,
+    }
+    return render(request, 'discussion.html', context)
+    

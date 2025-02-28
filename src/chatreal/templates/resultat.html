@@ -1,0 +1,23 @@
+{% extends 'plateform.html' %}
+
+{% block content %}
+    {% if resultat %}
+        <ul>
+            {% for u in resultat %}
+                <li>
+                    <img src="{{ u.profile_picture.url }}" alt="{{ u.username }}" />
+                    <span><a href="{% url 'discussion' u.uid %}">{{ u.username }}</a></span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune resultat sur {{ rechercher }} .</p>
+    {% endif %}
+    
+
+
+<div class="annuler_bouton">
+    <a href="{% url 'plateform' %}">Annuler</a>
+</div>
+
+{% endblock %}

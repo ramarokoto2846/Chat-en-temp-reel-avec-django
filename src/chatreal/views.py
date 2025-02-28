@@ -93,4 +93,20 @@ def Discussion(request, uid):
     }
     
     return render(request, 'discussion.html', context)
+
+
+def Recherche_user(request):
+    user = request.user
+    recherche = request.POST.get('search_user', '')
+    resultat = (
+        CustomUser.objects.filter(username__icontains=recherche).exclude(id=user.id) | CustomUser.objects.filter(uid__icontains=recherche).exclude(id=user.id)
+    )
+
+    context = {
+        'resultat': resultat,
+        'rechercher': recherche,
+        "user": user,
+    }
+
+    return render(request, 'resultat.html', context)
     

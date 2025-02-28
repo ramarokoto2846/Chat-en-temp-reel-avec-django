@@ -1,0 +1,75 @@
+.formconnexion form{
+    margin-left: 35%;
+    margin-top: 7vh;
+    border: 2px solid gray;
+    box-shadow: 0 0 10px gray;
+    background-color: #F3F8F3;
+    width: 450px;
+    padding: 20px;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.formconnexion form h1{
+    margin-top: 30px;
+    margin-bottom: 130px;
+    color: gray;
+    font-size: 2rem;
+    font-family: monospace;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    padding: 20px 50px;
+}
+
+.formconnexion form label{
+    margin-top: 10px;
+    color: gray;
+    font-size: 1.5rem;
+}
+
+
+.formconnexion form input{
+    border: 2px solid gray;
+    box-shadow: 0 0 10px gray;
+    width: 400px;
+    color: black;
+    font-weight: bolder;
+    outline: none;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    transition: 0.2s ease;
+    margin-bottom: 20px;
+    background-color: #F7f8f3;
+}
+
+.formconnexion form button{
+    padding: 20px 50px;
+    background-color: #1F4172;
+    color: white;
+    font-size: 2vh;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+.formconnexion form button:hover{
+    border: 2px solid #023246;
+    background-color: #F7F8F3;
+    color: #023246;
+    box-shadow: 0 0 10px #023246;
+    transform: scale(1.02);
+}
+
+.formconnexion h3 a{
+    color: red;
+    align-items: center;
+    text-decoration: none;
+    border-bottom: 1px solid red;
+}
+
+.formconnexion p{
+    margin-top: 15vh;
+}

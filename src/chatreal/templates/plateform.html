@@ -1,29 +1,35 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateform</title>
+    <link rel="stylesheet" href="{% static 'plateform.css' %}">
 </head>
 <body>
    
     <div class="plateform">
-        <h1>ChatApp</h1>
+        <h1>ChatApp|2846.exe</h1>
         <div class="contenue">
             <div class="utilisateurs">
                 <h2>Utilisateurs</h2>
-                {% if users %}
-                    <ul>
-                        {% for u in users %}
-                            <li>
-                                <img src="{{ u.profile_picture.url }}" alt="{{ u.username }}" />
-                                <span><a href="{% url 'discussion' u.uid %}">{{ u.username }}</a></span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                <form action="">
-                    <input type="search" name="search_user" placeholder="Recherche">
+                {% block content %}
+                    {% if users %}
+                        <ul>
+                            {% for u in users %}
+                                <li>
+                                    <img src="{{ u.profile_picture.url }}" alt="{{ u.username }}" />
+                                    <span><a href="{% url 'discussion' u.uid %}">{{ u.username }}</a></span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endblock %}
+                <form action="{% url 'rechercher_user' %}">
+                    {% csrf_token %}
+                    <input type="search" name="search_user" placeholder="Recherche" required>
                     <button type="submit">Go</button>
                 </form>
             </div>
@@ -37,7 +43,7 @@
                     </div>
                 </div>
                 {% block discu %}
-                    <p>Pas de discussion pour le moment !!!</p>
+                    <p>Demmarer une discussion.</p>
                 {% endblock %}
             </div>
         </div>
@@ -47,160 +53,7 @@
 </body>
 
 <style>
-    *{
-        box-sizing: border-box;
-        margin: 0;
-    }
-
-    .plateform{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: 50%;
-        height: 900px;
-        border: 2px solid black;
-    }
-
-    .contenue{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .plateform img{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 2px solid gray;
-        object-fit: cover;
-    }
-
-    .plateform .utilisateurs{
-        border: 2px solid gray;
-        margin: 10px;
-        width: 400px;
-        height: 820px;
-    }
-
-    .plateform .utilisateurs ul{
-        overflow-y: auto;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        height: 680px;
-    }
-
-    .plateform .utilisateurs ul li{
-        border: 2px solid gray;
-        border-radius: 10px;
-        text-align: center;
-        align-items: center;
-        display: flex;
-        margin: 5px 10px 5px -28px;
-        padding: 5px;
-        
-    }
-
-    .plateform .utilisateurs ul li span a{
-        color: gray;
-        font-size: 25px;
-        text-decoration: none;
-        margin: 0px 10px;
-        width: 255px;
-        overflow-x: auto;
-        font-weight: bolder;
-        text-align: left;
-        transition: 0.2s ease;
-    }
-
-    .plateform .utilisateurs ul li span a:hover{
-        color: black;
-        border-bottom: 1px solid gray;
-    }
-
-    .plateform .utilisateurs h2{
-        text-align: center;
-        border-bottom: 1px solid gray;
-        text-align: center;
-        font-family: monospace;
-        font-size: 30px;
-        margin: 20px auto;
-    }
-
-
-    .plateform .template{
-        border: 2px solid gray;
-        margin: 10px;
-        width: 600px;
-        height: 820px;
-        overflow-y: auto;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .plateform .template .user{
-        color: white;
-        background-color: rgb(4, 34, 43);
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        align-items: center;
-        text-align: center;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .plateform .template .user a{
-        text-decoration: none;
-        color: white;
-        border: 2px solid white;
-        padding: 5px 50px;
-        border-radius: 5px;
-        transition: 0.2s ease;
-    }
-
-    .plateform .template .user a:hover{
-        color: red;
-        border: 2px solid red;
-        box-shadow: 0 0 10px red;
-        transform: rotate(15deg);
-    }
-
-    .utilisateurs form{
-        margin: 10px;
-        padding-bottom: 20px;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: space-between;
-        width: 350px;
-    }
-
-    .utilisateurs form input{
-        width: 320px;
-        height: 30px;
-        border: 2px solid black;
-        text-align: center;
-        color: black;
-        font-weight: bolder;
-        border-radius: 5px 0px 0px 5px;
-        outline: none;
-    }
-
-    .utilisateurs form button{
-        height: 30px;
-        border: 2px solid black;
-        text-align: center;
-        color: white;
-        font-weight: bolder;
-        border-radius: 0 5px 5px 0;
-        background-color: black;
-    }
-
-    ::-webkit-scrollbar{
-        display: none;
-    }
-
-    {% block style %}
-    {% endblock %}
+    
 
 </style>
 

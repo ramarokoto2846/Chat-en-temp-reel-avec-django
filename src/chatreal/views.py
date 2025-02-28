@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation.template import context_re
 
 from .models import CustomUser, Messages
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, MessageForm
 
 
 
@@ -68,24 +68,29 @@ def Plateform(request):
 
 
 @login_required
-def Discussion(request, id):
+def Discussion(request, uid):
     users = CustomUser.objects.exclude(id=request.user.id)
-    destinateur = get_object_or_404(CustomUser, id=id)
-    texte = Messages.objects.filter(
-        Q(exped=request.user, dest=destinateur) | Q(exped=destinateur, dest=request.user)
-    ).order_by('date_env')
+    destinateur = get_object_or_404(CustomUser, uid=uid)
+    texte = Messages.objects.filter(Q(exped=request.user, dest=destinateur) | Q(exped=destinateur, dest=request.user)).order_by('date_env')
 
     if request.method == 'POST':
-        continue_message = request.POST.get('continue_message')
-        if continue_message.strip():
-            Messages.objects.create(exped=request.user, dest=destinateur, message=continue_message)
-        return redirect('discussion', id=id)
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.exped = request.user
+            message.dest = destinateur
+            message.save()
+            return redirect('discussion', uid=destinateur.uid)
+    else:
+        form = MessageForm()
 
     context = {
         "destinateur": destinateur,
         "expediteur": request.user,
         "users": users,
         "texte": texte,
+        "form":form,
     }
+    
     return render(request, 'discussion.html', context)
     

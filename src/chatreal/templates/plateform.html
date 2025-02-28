@@ -17,7 +17,7 @@
                         {% for u in users %}
                             <li>
                                 <img src="{{ u.profile_picture.url }}" alt="{{ u.username }}" />
-                                <span><a href="{% url 'discussion' u.id %}">{{ u.username }}</a></span>
+                                <span><a href="{% url 'discussion' u.uid %}">{{ u.username }}</a></span>
                             </li>
                         {% endfor %}
                     </ul>
@@ -154,6 +154,14 @@
         border: 2px solid white;
         padding: 5px 50px;
         border-radius: 5px;
+        transition: 0.2s ease;
+    }
+
+    .plateform .template .user a:hover{
+        color: red;
+        border: 2px solid red;
+        box-shadow: 0 0 10px red;
+        transform: rotate(15deg);
     }
 
     .utilisateurs form{
@@ -185,6 +193,10 @@
         font-weight: bolder;
         border-radius: 0 5px 5px 0;
         background-color: black;
+    }
+
+    ::-webkit-scrollbar{
+        display: none;
     }
 
     {% block style %}

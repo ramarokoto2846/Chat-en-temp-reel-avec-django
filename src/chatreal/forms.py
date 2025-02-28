@@ -32,3 +32,17 @@ class CustomUserCreationForm(UserCreationForm):
         if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Cet e-mail est déjà utilisé.")
         return email
+    
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Messages
+        fields = ['message']
+        widgets = {
+            'message': forms.Textarea(
+                attrs={
+                    'placeholder': 'Ecrivez un message.',
+                    'class': 'mess_input'
+                }
+            ),
+        }

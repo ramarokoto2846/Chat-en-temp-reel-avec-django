@@ -8,5 +8,5 @@ urlpatterns = [
     path('plateform/', Plateform, name="plateform"),
     path('deconnexion/', Deconnexion, name="deconnexion"),
 
-    path('discussion/<int:id>/', Discussion, name='discussion')
+    path('discussion/<str:uid>/', Discussion, name='discussion')
 ]
